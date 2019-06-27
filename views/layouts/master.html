@@ -1,0 +1,17 @@
+<!-- /views/admin/master.html -->
+<!doctype html>
+
+<html>
+    <head>
+        <title>{{.title}}</title>
+        {{template "head" .}}
+        {{asset "application.css"}}
+    </head>
+
+    <body>
+        {{template "content" .}}
+        <hr>
+        {{include "layouts/footer"}}
+        {{asset "application.js" }}
+    </body>
+</html>

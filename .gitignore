@@ -1,0 +1,6 @@
+# Project exclude paths
+/node_modules/
+/public/webpack/
+go.sum
+package-lock.json
+.idea
