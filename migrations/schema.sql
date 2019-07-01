@@ -1,8 +1,8 @@
-CREATE TABLE "schema_migration" (
+CREATE TABLE IF NOT EXISTS "schema_migration" (
 "version" TEXT NOT NULL
 );
 CREATE UNIQUE INDEX "schema_migration_version_idx" ON "schema_migration" (version);
-CREATE TABLE "users" (
+CREATE TABLE IF NOT EXISTS "users" (
 "id" TEXT PRIMARY KEY,
 "email" TEXT NOT NULL,
 "password" TEXT NOT NULL,

@@ -1,11 +1,11 @@
 development:
   dialect: "sqlite3"
-  database: /Users/angeldm/mod/echo-v4/echo-v4_development.sqlite
+  database: /home/angeldm/mod/echoview/echoview_development.sqlite
 
 test:
   dialect: "sqlite3"
-  database: /Users/angeldm/mod/echo-v4/echo-v4_test.sqlite
+  database: /home/angeldm/mod/echoview/echoview_test.sqlite
 
 production:
   dialect: "sqlite3"
-  database: /Users/angeldm/mod/echo-v4/echo-v4_production.sqlite
+  database: /home/angeldm/mod/echoview/echoview_production.sqlite
