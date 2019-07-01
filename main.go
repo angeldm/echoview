@@ -9,10 +9,10 @@
 package main
 
 import (
+	"net/http"
 
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
-	"net/http"
 )
 
 func main() {
@@ -20,7 +20,7 @@ func main() {
 	// Echo instance
 	e := echo.New()
 
-	e.Static("/static","public/webpack")
+	e.Static("/static", "public/webpack")
 	// Middleware
 	e.Use(middleware.Logger())
 	e.Use(middleware.Recover())
@@ -30,7 +30,8 @@ func main() {
 
 	// Routes
 	e.GET("/", func(c echo.Context) error {
-		//render with master
+
+		//render 	with master
 		return c.Render(http.StatusOK, "index", echo.Map{
 			"title": "Index title!",
 			"add": func(a int, b int) int {

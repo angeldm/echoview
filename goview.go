@@ -1,14 +1,14 @@
 package main
 
 import (
+	"io"
+
 	"github.com/foolin/goview"
 	"github.com/go-webpack/webpack"
 	"github.com/labstack/echo/v4"
-	"io"
 )
 
 const templateEngineKey = "foolin-goview-echoview"
-
 
 // ViewEngine view engine for echo
 type ViewEngine struct {
@@ -19,7 +19,7 @@ type ViewEngine struct {
 func New(config goview.Config) *ViewEngine {
 	webpack.Plugin = "manifest"
 	webpack.Init(true)
-	config.Funcs["asset"]=webpack.AssetHelper
+	config.Funcs["asset"] = webpack.AssetHelper
 	return &ViewEngine{
 		ViewEngine: goview.New(config),
 	}
