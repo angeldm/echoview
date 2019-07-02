@@ -1,17 +1,31 @@
-package main
+package middleware
 
 import (
-	"io"
-
+	"angeldm.echoview/utils/logmatic"
 	"github.com/foolin/goview"
 	"github.com/go-webpack/webpack"
 	"github.com/labstack/echo/v4"
+	"html/template"
+	"io"
 )
 
 const templateEngineKey = "foolin-goview-echoview"
 
+// DefaultConfig default config
+var DefaultConfig = goview.Config{
+	Root:         "views",
+	Extension:    ".html",
+	Master:       "layouts/master",
+	Partials:     []string{},
+	Funcs:        make(template.FuncMap),
+	DisableCache: true,
+	Delims:       goview.Delims{Left: "{{", Right: "}}"},
+}
+
 // ViewEngine view engine for echo
 type ViewEngine struct {
+	echo.Context
+	*logmatic.Logger
 	*goview.ViewEngine
 }
 
@@ -20,20 +34,30 @@ func New(config goview.Config) *ViewEngine {
 	webpack.Plugin = "manifest"
 	webpack.Init(true)
 	config.Funcs["asset"] = webpack.AssetHelper
+	gv := goview.New(config)
+	l := logmatic.NewLogger("GOVIEW")
+	l.SetLevel(logmatic.DEBUG)
 	return &ViewEngine{
-		ViewEngine: goview.New(config),
+
+		Logger:     l,
+		ViewEngine: gv,
 	}
 }
 
 // Default new default config view engine
 func Default() *ViewEngine {
 
-	return New(goview.DefaultConfig)
+	return New(DefaultConfig)
 }
 
 // Render render template for echo interface
 func (e *ViewEngine) Render(w io.Writer, name string, data interface{}, c echo.Context) error {
-	return e.RenderWriter(w, name, data)
+	e.Logger.Debug(name, data)
+	err := e.RenderWriter(w, name, data)
+	if err != nil {
+		e.Logger.Error(name, err)
+	}
+	return err
 }
 
 // Render html render for template

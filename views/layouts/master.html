@@ -2,16 +2,23 @@
 <!doctype html>
 
 <html>
-    <head>
-        <title>{{.title}}</title>
-        {{template "head" .}}
-        {{asset "application.css"}}
-    </head>
+<head>
+    <title>{{.title}}</title>
+    {{template "head" .}}
+    {{asset "application.css"}}
+</head>
 
-    <body>
+<body class="app header-fixed sidebar-fixed aside-menu-fixed sidebar-lg-show ">
+{{include "layouts/navbar"}}
+<div class="app-body">
+    {{ include "layouts/sidebar"}}
+    <main class="main">
+
         {{template "content" .}}
-        <hr>
-        {{include "layouts/footer"}}
-        {{asset "application.js" }}
-    </body>
+
+    </main>
+</div>
+{{include "layouts/footer"}}
+{{asset "application.js" }}
+</body>
 </html>
