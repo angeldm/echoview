@@ -22,7 +22,8 @@
     "popper.js": "^1.15.0",
     "regenerator-runtime": "^0.13.2",
     "simple-line-icons": "^2.4.1",
-    "systematize": "^3.3.1"
+    "systematize": "^3.3.1",
+    "vali-admin": "^2.4.1"
   },
   "devDependencies": {
     "@babel/cli": "^7.4.4",
@@ -45,7 +46,7 @@
     "extract-css-chunks-webpack-plugin": "^4.5.2",
     "extract-loader": "^3.1.0",
     "file-loader": "^4.0.0",
-    "font-awesome-webpack": "^0.0.5-beta.2",
+    "font-awesome-webpack": "0.0.5-beta.2",
     "glob": "^7.1.4",
     "gopherjs-loader": "^0.0.1",
     "html-loader": "^0.5.5",
