@@ -1,10 +1,11 @@
 package middleware
 
 import (
-	"angeldm.echoview/utils/logmatic"
-	"github.com/foolin/goview"
+	"angeldm.echoview/utils/goview"
+	"angeldm.echoview/utils/logger"
 	"github.com/go-webpack/webpack"
 	"github.com/labstack/echo/v4"
+	"github.com/sirupsen/logrus"
 	"html/template"
 	"io"
 )
@@ -25,7 +26,7 @@ var DefaultConfig = goview.Config{
 // ViewEngine view engine for echo
 type ViewEngine struct {
 	echo.Context
-	*logmatic.Logger
+	Logger *logrus.Logger
 	*goview.ViewEngine
 }
 
@@ -35,8 +36,8 @@ func New(config goview.Config) *ViewEngine {
 	webpack.Init(true)
 	config.Funcs["asset"] = webpack.AssetHelper
 	gv := goview.New(config)
-	l := logmatic.NewLogger("GOVIEW")
-	l.SetLevel(logmatic.DEBUG)
+	//l := logger.NewStdLogger("GOVIEW","")
+	l := logger.NewLogrus()
 	return &ViewEngine{
 
 		Logger:     l,
@@ -52,10 +53,15 @@ func Default() *ViewEngine {
 
 // Render render template for echo interface
 func (e *ViewEngine) Render(w io.Writer, name string, data interface{}, c echo.Context) error {
-	e.Logger.Debug(name, data)
+	fields := make(logrus.Fields)
+	mapp := data.(echo.Map)
+	for key, value := range mapp {
+		fields[key] = value
+	}
+	e.Logger.WithFields(fields).Info("GOVIEW[" + name + "]")
 	err := e.RenderWriter(w, name, data)
 	if err != nil {
-		e.Logger.Error(name, err)
+		e.Logger.Info(name)
 	}
 	return err
 }

@@ -1,7 +1,12 @@
 {{define "head"}}
     <style>
-        .hello{ color: red;}
-        hr{ border: 1px #ccc dashed;}
+        .hello {
+            color: red;
+        }
+
+        hr {
+            border: 1px #ccc dashed;
+        }
     </style>
 {{end}}
 
@@ -13,7 +18,9 @@
     <p><a href="/page">Page render</a></p>
     {{range .users}}
         <p>user</p>
+        <hr><p>{{.DisplayName}}</p>
         <hr>
+
         <p>{{.Email}}</p>
         <hr>
     {{end}}
