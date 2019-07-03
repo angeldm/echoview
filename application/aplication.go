@@ -4,6 +4,8 @@ import (
 	"angeldm.echoview/application/context"
 	angeldm "angeldm.echoview/application/middleware"
 	"angeldm.echoview/models"
+
+	//"angeldm.echoview/models"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
 	"net/http"
@@ -22,8 +24,8 @@ func NewApplication() *Application {
 	e.Use(middleware.LoggerWithConfig(middleware.LoggerConfig{
 		Format: "[ECHO] DEBUG method=${method}, uri=${uri}, status=${status}\n",
 	}))
-	e.Use(middleware.Recover())
-	e.Use(angeldm.NewPOPMiddleware())
+	//e.Use(middleware.Recover())
+	e.Use(angeldm.UpperdbMiddleware())
 
 	//Set Renderer
 	e.Renderer = angeldm.Default()
@@ -31,11 +33,15 @@ func NewApplication() *Application {
 	// Routes
 	e.GET("/", func(c echo.Context) error {
 		cc := c.(*context.CustomContext)
-		users := models.Users{}
-		err := cc.Connection.All(&users)
-		if err != nil {
-			panic(err)
-		}
+		col := cc.DB.Collection("users")
+		res := col.Find()
+		var users []models.User
+		res.All(&users)
+		//users := models.Users{}
+		//err := cc.Connection.All(&users)
+		//if err != nil {
+		//	panic(err)
+		//}
 		//render 	with master
 		return c.Render(http.StatusOK, "index", echo.Map{
 			"title": "Index title!",

@@ -1,14 +1,13 @@
 package context
 
 import (
-	"github.com/gobuffalo/pop"
 	"github.com/labstack/echo/v4"
+	"upper.io/db.v3/lib/sqlbuilder"
 )
 
 type CustomContext struct {
 	echo.Context
-	Connection *pop.Connection
-	//Log *logger
+	DB sqlbuilder.Database
 }
 
 func (c *CustomContext) Foo() {
