@@ -14,7 +14,7 @@
     "flag-icon-css": "^3.3.0",
     "font-awesome": "^4.7.0",
     "global": "^4.4.0",
-    "jquery": "~3.4.1",
+    "jquery": "~3.5.0",
     "jquery-ujs": "~1.2.2",
     "material-components-web": "^3.0.0",
     "pace-progress": "^1.0.2",
